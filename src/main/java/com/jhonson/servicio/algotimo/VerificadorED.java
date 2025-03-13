@@ -6,9 +6,11 @@ import java.util.List;
 public class VerificadorED {
 
 
-    public static boolean verificadordeEventoDetectabilidad(int[] estados, int[] transiciones, int[][] c){
-        if (!hayColumnasCero(estados, transiciones, c)){
-            return !hayColumnasRepetidas(estados, transiciones, c);
+    public static boolean verificadordeEventoDetectabilidad(int[][] c, int[] estados, int[] transiciones){
+        int[][] matriz = eliminarFilasYColumnas(c, estados, transiciones);
+
+        if (!hayColumnasCero(matriz)){
+            return !hayColumnasRepetidas(matriz);
         }
 
         return false;
@@ -16,8 +18,7 @@ public class VerificadorED {
 
 
 
-    public static boolean hayColumnasRepetidas(int[] estados, int[] transiciones, int[][] c) {
-        int[][] matriz = eliminarFilasYColumnas(estados, transiciones, c);
+    public static boolean hayColumnasRepetidas(int[][] matriz) {
 
         int filas = matriz.length;
         int columnas = matriz[0].length;
@@ -43,16 +44,14 @@ public class VerificadorED {
     }
 
 
-    public static boolean hayColumnasCero(int[] estados, int[] transiciones, int[][] c) {
-
-        int[][] matriz = eliminarFilasYColumnas(estados, transiciones, c);
+    public static boolean hayColumnasCero(int[][] matriz) {
 
 
-        for (int i = 0; i < matriz.length; i++) {
+        for (int c = 0; c < matriz[0].length; c++) {
             boolean columnaCero = true;
 
-            for (int j = 0; j < matriz[i].length; j++) {
-                if (matriz[j][i] != 0) {
+            for (int r = 0; r < matriz.length; r++) {
+                if (matriz[r][c] != 0) {
                     columnaCero = false;
                     break;
                 }
@@ -66,7 +65,7 @@ public class VerificadorED {
         return false;
     }
 
-    public static int[][] eliminarFilasYColumnas(int[] estados, int[] transiciones, int[][] c) {
+    public static int[][] eliminarFilasYColumnas( int[][] c, int[] estados, int[] transiciones) {
 
         int[][] filasFiltradas = filtrarFilas(estados, c).toArray(new int[0][]);
 
