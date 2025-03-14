@@ -14,26 +14,18 @@ public class Main {
                 {-1, 0, 0, 1}
         };
 
-        for (int[] fila: c){
-            for (int columna: fila){
-                System.out.print(columna + " ");
-            }
-            System.out.println();
-        }
+        MatrizHelper.showMatriz(c);
 
         int[] places = {0, 1, 0, 1, 0};
         int[] transitions = {1, 1, 1, 1};
 
 
         System.out.println("\nplaces");
-        for (int i = 0; i < places.length; i++) {
-            System.out.print(places[i] +" ");
-        }
+        MatrizHelper.showArray(places);
 
         System.out.println("\nTransitions");
-        for (int i = 0; i < transitions.length; i++) {
-            System.out.print(transitions[i]+" ");
-        }
+        MatrizHelper.showArray(transitions);
+
 
 
         int[][] prueba = EventDetectabilityChecker.removeRowsAndColumns(c, places, transitions);
