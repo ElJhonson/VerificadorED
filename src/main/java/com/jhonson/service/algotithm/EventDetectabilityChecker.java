@@ -62,6 +62,9 @@ public class EventDetectabilityChecker {
      * @return {@code true} if there is at least one zero column, otherwise {@code false}.
      */
     public static boolean hasZeroColumns(int[][] matrix) {
+        if(matrix.length<1){
+            return true;
+        }
         for (int c = 0; c < matrix[0].length; c++) {
             boolean isZeroColumn = true;
 

@@ -6,11 +6,12 @@ public class Main {
 
         int[][] c = CsvParser.parseCsvToMatrix(CSVPath, ",");
 
-        int[][] d = { //resultado esperado
-                {-1, 1, 0},
-                {0, 1, -1},
-                {0, 0, -1},
-
+        int[][] d = { //Matriz parseada
+                {-1, -1, 0, 0},
+                {1, -1, 1, 0},
+                {0, 0, -1, -1},
+                {0, 0, 1, -1},
+                {-1, 0, 0, 1}
         };
 
         for (int[] fila: c){
@@ -20,13 +21,34 @@ public class Main {
             System.out.println();
         }
 
-        int[] states = {1, 0, 1, 1, 0};
-        int[] transitions = {0, 0, 1, 0};
+        int[] places = {0, 1, 0, 1, 0};
+        int[] transitions = {1, 1, 1, 1};
 
 
-        int[][] prueba = EventDetectabilityChecker.removeRowsAndColumns(c, states, transitions);
+        System.out.println("\nplaces");
+        for (int i = 0; i < places.length; i++) {
+            System.out.print(places[i] +" ");
+        }
+
+        System.out.println("\nTransitions");
+        for (int i = 0; i < transitions.length; i++) {
+            System.out.print(transitions[i]+" ");
+        }
 
 
-        System.out.println(EventDetectabilityChecker.checkEventDetectability(c, states, transitions));
+        int[][] prueba = EventDetectabilityChecker.removeRowsAndColumns(c, places, transitions);
+
+        System.out.println("\nMatriz");
+        for (int[] fila: prueba){
+            for (int columna: fila){
+                System.out.print(columna + " ");
+            }
+            System.out.println();
+        }
+
+        System.out.println();
+
+
+        System.out.println(EventDetectabilityChecker.checkEventDetectability(c, places, transitions));
     }
 }
