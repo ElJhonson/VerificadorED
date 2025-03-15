@@ -2,22 +2,14 @@ package com.jhonson.service.algotithm;
 
 public class Main {
     public static void main(String[] args) {
-        String CSVPath = "/C://Users//angel//OneDrive//Documentos//Prueba//prueba.csv/";
+        String CSVPath = "/C://Users//angel//OneDrive//Documentos//Prueba//matriz.csv/";
 
         int[][] c = CsvParser.parseCsvToMatrix(CSVPath, ",");
 
-        int[][] d = { //Matriz parseada
-                {-1, -1, 0, 0},
-                {1, -1, 1, 0},
-                {0, 0, -1, -1},
-                {0, 0, 1, -1},
-                {-1, 0, 0, 1}
-        };
-
         MatrizHelper.showMatriz(c);
 
-        int[] places = {0, 1, 0, 1, 0};
-        int[] transitions = {1, 1, 1, 1};
+        int[] places = PlaceTransistionGenerator.generateMeasurablePlaces(c.length);
+        int[] transitions =  PlaceTransistionGenerator.generateMeasurableTransitions(c[0].length);
 
 
         System.out.println("\nplaces");
@@ -30,13 +22,8 @@ public class Main {
 
         int[][] prueba = EventDetectabilityChecker.removeRowsAndColumns(c, places, transitions);
 
-        System.out.println("\nMatriz");
-        for (int[] fila: prueba){
-            for (int columna: fila){
-                System.out.print(columna + " ");
-            }
-            System.out.println();
-        }
+        System.out.println("\nMatriz recortada");
+        MatrizHelper.showMatriz(prueba);
 
         System.out.println();
 
