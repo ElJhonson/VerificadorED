@@ -14,12 +14,12 @@ public class MatrizHelper {
      * @param matrix The 2D integer matrix to be displayed.
      */
     public static void showMatriz(int[][] matrix) {
-        for (int r = 0; r < matrix.length; r++) {
-            for (int c = 0; c < matrix[0].length; c++) {
-                System.out.print(matrix[r][c] + " ");
-            }
-            System.out.println();
-        }
+       for (int[] r: matrix){
+           for (int c: r){
+               System.out.print(c+" ");
+           }
+           System.out.println();
+       }
     }
 
     /**
