@@ -6,33 +6,20 @@ public class Main {
         String CSVPath = "/C://Users//angel//OneDrive//Documentos//Prueba//matriz.csv/";
 //
         int[][] c = CsvParser.parseCsvToMatrix(CSVPath, ",");
-//
-//        MatrizHelper.showMatriz(c);
-//
+        int[][] d = {
+                {-1, 1, 0, 0},
+                {1, -1, 1, 0},
+                {0, 1, -1, -1},
+                {0, 0, 1, -1},
+                {-1, 0, 0, 1}
+        };
+        final float[] COST_PLACES = {1, 1, 1, 1, 1};
+        final float[] COST_TRANSITION = {1, 1, 1, 1};
 
-//
-//
-//        System.out.println("\nplaces");
-//        MatrizHelper.showArray(places);
-//
-//        System.out.println("\nTransitions");
-//        MatrizHelper.showArray(transitions);
-//
-//
-//
-//        int[][] prueba = EventDetectabilityChecker.removeRowsAndColumns(c, places, transitions);
-//
-//        System.out.println("\nMatriz recortada");
-//        MatrizHelper.showMatriz(prueba);
-//
-//        System.out.println();
-//
-//
-//        System.out.println(EventDetectabilityChecker.checkEventDetectability(c, places, transitions));
+        int[] places = {1, 1, 1, 0, 1};
+        int[] transition = {1, 1, 1, 1};
 
-        int[][] test = GenesGenerator.generateGenes(c);
-
-        MatrizHelper.showMatriz(test);
+        FitnessCalculator.evaluatePopulationFitness(d, COST_PLACES, COST_TRANSITION);
 
     }
 }
