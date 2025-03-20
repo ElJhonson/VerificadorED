@@ -1,5 +1,7 @@
 package com.jhonson.service.algotithm;
 
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -18,8 +20,8 @@ public class Main {
 
         int[] places = {1, 1, 1, 0, 1};
         int[] transition = {1, 1, 1, 1};
-
-        FitnessCalculator.evaluatePopulationFitness(d, COST_PLACES, COST_TRANSITION);
+        List<SensorConfig> population = GenesGenerator.generateGenes(d);
+        FitnessCalculator.evaluatePopulationFitness(population, COST_PLACES, COST_TRANSITION);
 
     }
 }

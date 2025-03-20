@@ -2,7 +2,7 @@ package com.jhonson.service.algotithm;
 
 import java.util.Arrays;
 
-public class SensorConfig {
+public class SensorConfig implements Comparable<SensorConfig>{
     private int[] placeConfig;
     private int[] transConfig;
     private float fitness;
@@ -45,4 +45,11 @@ public class SensorConfig {
                 "\ntransConfig: " + Arrays.toString(transConfig) +
                 "\nfitness: "+fitness;
     }
+
+
+    @Override
+    public int compareTo(SensorConfig o) {
+        return Float.compare(this.fitness, o.fitness);
+    }
+
 }
