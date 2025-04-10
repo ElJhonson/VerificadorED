@@ -1,9 +1,10 @@
-package com.jhonson.service.algotithm;
+package com.jhonson.service.algotithm.fitness;
+
+import com.jhonson.service.algotithm.model.SensorConfig;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 /**
@@ -15,38 +16,21 @@ public class FitnessCalculator {
 
     /**
      * Evaluates the fitness function for a population of sensor configurations.
-     * Each configuration has a distribution of sensors in places and transitions, and the total cost is calculated.
+     * Each configuration consists of a distribution of sensors in places and transitions,
+     * and the total cost is computed based on predefined costs.
      *
-     * @param population A  SensorConfig list representing the actual population.
-     * @param placeCosts An array of costs for the places in the Petri net.
-     * @param transitionCosts An array of costs for the transitions in the Petri net.
+     * @param population is a List representing the population's sensor configurations.
+     * @return A list of SensorConfig objects with calculated fitness values.
      */
-    public static void evaluatePopulationFitness(List<SensorConfig> population, float[] placeCosts, float[] transitionCosts) {
-        List<Float> fitnessValues = new ArrayList<>();
-
+    public static List<SensorConfig> evaluatePopulationFitness(List<SensorConfig> population) {
         population.forEach(config -> {
             // Calculate the fitness for each configuration and store it in the list.
-            float fitness = computeFitness(config, placeCosts, transitionCosts);
+            float fitness = computeFitness(config, SensorManagerCost.COST_PLACES, SensorManagerCost.COST_TRANSITION);
             config.setFitness(fitness);
-            fitnessValues.add(fitness);
+
         });
 
-        // Print out the fitness values for the entire population.
-        Collections.sort(population);
-        AtomicInteger cont = new AtomicInteger();
-        SensorConfig conf = Collections.min(population);
-        float min = conf.getFitness();
-        System.out.println("Min value = "+ min);
-        System.out.println("-------------------------------------");
-        population.forEach(n ->{
-            if (n.getFitness()==min){
-                cont.getAndIncrement();
-                System.out.println(n);
-            }
-        });
-        System.out.println("Total: "+cont);
-        System.out.println("=====================================");
-        population.forEach(System.out::println);
+        return population;
     }
 
     /**
@@ -75,5 +59,34 @@ public class FitnessCalculator {
 
         // Return the total fitness (sum of place and transition costs).
         return (float) (totalPlaceCost + totalTransitionCost);
+    }
+
+    /**
+     * Finds the minimum fitness value within a given population of sensor configurations.
+     *
+     * @param population A list of SensorConfig objects.
+     * @return The minimum fitness value found in the population.
+     */
+    public static float getMinValue(List<SensorConfig> population){
+        SensorConfig conf = Collections.min(population);
+        return conf.getFitness();
+    }
+
+    /**
+     * Retrieves a list of sensor configurations that have the minimum fitness value
+     * within the given population.
+     *
+     * @param population A list of SensorConfig objects.
+     * @return A list of SensorConfig objects that have the lowest fitness value.
+     */
+    public static List<SensorConfig> getSensorConfigMin(List<SensorConfig> population){
+        List<SensorConfig> configs = new ArrayList<>();
+        float minValue = getMinValue(population);
+        population.forEach(n ->{
+            if (n.getFitness()==minValue){
+                configs.add(n);
+            }
+        });
+        return configs;
     }
 }

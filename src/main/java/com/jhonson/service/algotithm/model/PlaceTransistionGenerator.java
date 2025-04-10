@@ -1,4 +1,4 @@
-package com.jhonson.service.algotithm;
+package com.jhonson.service.algotithm.model;
 
 import java.util.Random;
 

@@ -1,5 +1,10 @@
 package com.jhonson.service.algotithm;
 
+import com.jhonson.service.algotithm.evolution.EvolutionManager;
+import com.jhonson.service.algotithm.fitness.SensorManagerCost;
+import com.jhonson.service.algotithm.model.SensorConfig;
+import com.jhonson.service.algotithm.util.CsvParser;
+
 import java.util.List;
 
 public class Main {
@@ -18,10 +23,19 @@ public class Main {
         final float[] COST_PLACES = {1, 1, 1, 1, 1};
         final float[] COST_TRANSITION = {1, 1, 1, 1};
 
+        SensorManagerCost.CostConfig(COST_PLACES, COST_TRANSITION);
+
         int[] places = {1, 1, 1, 0, 1};
         int[] transition = {1, 1, 1, 1};
-        List<SensorConfig> population = GenesGenerator.generateGenes(d);
-        FitnessCalculator.evaluatePopulationFitness(population, COST_PLACES, COST_TRANSITION);
+
+
+        for (List<SensorConfig> scf: EvolutionManager.evolveGenerations(d, 3)){
+            System.out.println("========================Generation=============================");
+            for (SensorConfig s: scf){
+                System.out.println(s);
+            }
+
+        }
 
     }
 }

@@ -1,4 +1,4 @@
-package com.jhonson.service.algotithm;
+package com.jhonson.service.algotithm.util;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
